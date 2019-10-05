@@ -1,6 +1,9 @@
 install_deps:
 	go mod download
 
+setup-test:
+	./testdata/setup_test_repos.sh
+
 # Standard go test
 test:
 	go test ./... -v -race
