@@ -38,20 +38,6 @@ steps:
       event: tag
     depends_on: [fetch]
 
-  - name: release
-    image: golang
-    environment:
-      GITHUB_TOKEN:
-        from_secret: github_token
-    volumes:
-      - name: deps
-        path: /go
-    commands:
-      - curl -sL https://git.io/goreleaser | bash
-    when:
-      event: tag
-    depends_on: [fetch]
-
 volumes:
   - name: deps
     temp: {}
