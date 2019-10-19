@@ -6,6 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 func TestCommitsBetween(t *testing.T) {
@@ -34,4 +35,41 @@ func TestCommitsBetween(t *testing.T) {
 	middleCommit, _ := repo.CommitObject(commits[1])
 
 	assert.Equal(t, "chore: third commit on master\n", middleCommit.Message)
+}
+
+func TestNoToCommit(t *testing.T) {
+	repo := setupRepo()
+	createTestHistory(repo)
+
+	head, _ := repo.Head()
+
+	testGit := &Git{repo: repo}
+
+	commits, err := testGit.CommitsBetween(head.Hash(), plumbing.Hash{})
+
+	assert.Equal(t, 4, len(commits))
+
+	commit, commitErr := repo.CommitObject(commits[0])
+
+	assert.NoError(t, commitErr)
+	assert.Equal(t, "third commit on new branch", commit.Message)
+	assert.Equal(t, err, nil)
+
+	lastCommit, _ := repo.CommitObject(commits[3])
+
+	assert.Equal(t, "test commit on master", lastCommit.Message)
+}
+
+func TestToFromEqual(t *testing.T) {
+	repo := setupRepo()
+	createTestHistory(repo)
+
+	head, _ := repo.Head()
+
+	testGit := &Git{repo: repo}
+
+	commits, err := testGit.CommitsBetween(head.Hash(), head.Hash())
+
+	assert.Equal(t, 0, len(commits))
+	assert.NoError(t, err)
 }
