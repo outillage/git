@@ -2,8 +2,8 @@
 
 rm -rf testdata/commits_on_branch
 rm -rf testdata/git_tags
-rm -rf testdata/detached_tags
 
+if [ ! -d './testdata/commits_on_branch' ]; then
   cd testdata
 
   echo 'testdata/commits_on_branch_test/ directory does not exist at the root; creating...'
@@ -13,8 +13,8 @@ rm -rf testdata/detached_tags
   echo 'testdata/git_tags/ directory does not exist at the root; creating...'
   git clone git_tags.bundle
   echo 'done'
-
-
-echo 'testdata/detached_tags/ directory does not exist at the root; creating...'
-  git clone detached_tags.bundle
-  echo 'done'
+  
+else
+  echo 'testdata/commits_on_branch_test directory already exists; aborting.'
+  exit -1
+fi

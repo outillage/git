@@ -1,6 +1,8 @@
 package history
 
 import (
+	"time"
+
 	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
@@ -8,4 +10,5 @@ import (
 type Tag struct {
 	Name string
 	Hash plumbing.Hash
+	Date time.Time
 }
