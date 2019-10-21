@@ -14,14 +14,14 @@ var (
 
 // PreviousTag sorts tags based on when their commit happened and returns the one previous
 // to the current.
-func (g *Git) PreviousTag(currentHash plumbing.Hash) (plumbing.Hash, error) {
+func (g *Git) PreviousTag(currentHash plumbing.Hash) (*Tag, error) {
 	tags, err := g.getTags()
 
 	if err != nil {
 		if g.Debug {
 			log.Printf("[ERR] getting previous tag failed: %v", err)
 		}
-		return currentHash, err
+		return nil, err
 	}
 
 	// If there are fewer than two tags assume that the currentCommit is the newest tag
@@ -29,19 +29,19 @@ func (g *Git) PreviousTag(currentHash plumbing.Hash) (plumbing.Hash, error) {
 		if g.Debug {
 			log.Println("[ERR] previous tag not available")
 		}
-		return currentHash, ErrPrevTagNotAvailable
+		return nil, ErrPrevTagNotAvailable
 	}
 
 	if tags[0].Hash != currentHash {
 		if g.Debug {
 			log.Println("[ERR] current commit does not have a tag attached, building from this commit")
 		}
-		return tags[0].Hash, nil
+		return tags[0], nil
 	}
 
 	if g.Debug {
 		log.Printf("success: previous tag found at %v", tags[1].Hash)
 	}
 
-	return tags[1].Hash, nil
+	return tags[1], nil
 }
