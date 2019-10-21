@@ -23,7 +23,10 @@ func (g *Git) getTags() ([]*Tag, error) {
 		commitDate, err := g.commitDate(t.Hash())
 
 		if err != nil {
-			return err
+			if g.Debug {
+				log.Printf("tag: %v ignored due to missing commit date: %v", t.Name(), err)
+			}
+			return nil
 		}
 
 		tags = append(tags, &Tag{Name: t.Name().String(), Date: commitDate, Hash: t.Hash()})
