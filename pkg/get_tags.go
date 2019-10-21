@@ -20,7 +20,13 @@ func (g *Git) getTags() ([]*Tag, error) {
 	var tags []*Tag
 
 	err = tagrefs.ForEach(func(t *plumbing.Reference) error {
-		tags = append(tags, &Tag{Name: t.Name().String(), Hash: t.Hash()})
+		commitDate, err := g.commitDate(t.Hash())
+
+		if err != nil {
+			return err
+		}
+
+		tags = append(tags, &Tag{Name: t.Name().String(), Date: commitDate, Hash: t.Hash()})
 		return nil
 	})
 
@@ -34,18 +40,17 @@ func (g *Git) getTags() ([]*Tag, error) {
 	if g.Debug {
 		log.Println("Sorted tag output: ")
 		for _, taginstance := range sortedTags {
-			log.Printf("hash: %v name: %v", taginstance.Hash, taginstance.Name)
+			log.Printf("hash: %v time: %v", taginstance.Hash, taginstance.Date.UTC())
 		}
 	}
 
 	return sortedTags, nil
 }
 
-// sortTags sorts the tags in reverse.
+// sortTags sorts the tags according to when their parent commit happened.
 func sortTags(repo *git.Repository, tags []*Tag) []*Tag {
 	sort.Slice(tags, func(i, j int) bool {
-		// Reverses the order
-		return j < i
+		return tags[i].Date.After(tags[j].Date)
 	})
 
 	return tags
