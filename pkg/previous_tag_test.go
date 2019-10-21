@@ -1,7 +1,6 @@
 package history
 
 import (
-	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -16,13 +15,11 @@ func TestPreviousTag(t *testing.T) {
 
 	assert.NoError(t, err)
 
-	tagHash, err := testGit.PreviousTag(head.Hash())
+	tag, err := testGit.PreviousTag(head.Hash())
 
 	assert.NoError(t, err)
 
-	log.Print(tagHash)
-
-	commit, err := repo.CommitObject(tagHash)
+	commit, err := repo.CommitObject(tag.Hash)
 	assert.NoError(t, err)
 	assert.Equal(t, "chore: first commit on master\n", commit.Message)
 

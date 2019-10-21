@@ -8,7 +8,7 @@ import (
 	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
-func (g *Git) getTags() ([]Tag, error) {
+func (g *Git) getTags() ([]*Tag, error) {
 	tagrefs, err := g.repo.Tags()
 
 	if err != nil {
@@ -17,7 +17,7 @@ func (g *Git) getTags() ([]Tag, error) {
 
 	defer tagrefs.Close()
 
-	var tags []Tag
+	var tags []*Tag
 
 	err = tagrefs.ForEach(func(t *plumbing.Reference) error {
 		commitDate, err := g.commitDate(t.Hash())
@@ -26,7 +26,7 @@ func (g *Git) getTags() ([]Tag, error) {
 			return err
 		}
 
-		tags = append(tags, Tag{Name: t.Name().String(), Date: commitDate, Hash: t.Hash()})
+		tags = append(tags, &Tag{Name: t.Name().String(), Date: commitDate, Hash: t.Hash()})
 		return nil
 	})
 
@@ -48,7 +48,7 @@ func (g *Git) getTags() ([]Tag, error) {
 }
 
 // sortTags sorts the tags according to when their parent commit happened.
-func sortTags(repo *git.Repository, tags []Tag) []Tag {
+func sortTags(repo *git.Repository, tags []*Tag) []*Tag {
 	sort.Slice(tags, func(i, j int) bool {
 		return tags[i].Date.After(tags[j].Date)
 	})

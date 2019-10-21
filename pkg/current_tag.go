@@ -34,7 +34,7 @@ func (g *Git) CurrentTag() (*Tag, error) {
 		}
 
 		if tag.Hash == head.Hash() {
-			return &tag, nil
+			return tag, nil
 		}
 	}
 
