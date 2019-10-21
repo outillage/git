@@ -1,6 +1,9 @@
 package history
 
-import "errors"
+import (
+	"errors"
+	"log"
+)
 
 var (
 	// ErrCommitNotOnTag is returned by CurrentTag if the commit is not on a tag
@@ -17,7 +20,19 @@ func (g *Git) CurrentTag() (*Tag, error) {
 
 	tags, err := g.getTags()
 
+	if err != nil {
+		return nil, err
+	}
+
+	if g.Debug {
+		log.Println("head hash: ", head.Hash())
+	}
+
 	for _, tag := range tags {
+		if g.Debug {
+			log.Printf("tag: %v, hash: %v", tag.Name, tag.Hash)
+		}
+
 		if tag.Hash == head.Hash() {
 			return &tag, nil
 		}
