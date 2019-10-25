@@ -1,2 +1,3 @@
 testdata/commits_on_branch/
 testdata/git_tags/
+testdata/annotated_git_tags_mix/

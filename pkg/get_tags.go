@@ -6,6 +6,7 @@ import (
 
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
+	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 func (g *Git) getTags() ([]*Tag, error) {
@@ -36,6 +37,18 @@ func (g *Git) getTags() ([]*Tag, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	tagObjects, err := g.repo.TagObjects()
+
+	if err != nil {
+		return nil, err
+	}
+
+	err = tagObjects.ForEach(func(tag *object.Tag) error {
+		tags = append(tags, &Tag{Name: tag.Name, Date: tag.Tagger.When, Hash: tag.Hash})
+
+		return nil
+	})
 
 	// Tags are alphabetically ordered. We need to sort them by date.
 	sortedTags := sortTags(g.repo, tags)
