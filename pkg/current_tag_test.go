@@ -19,6 +19,18 @@ func TestCurrentTagHappy(t *testing.T) {
 	assert.Equal(t, "refs/tags/v0.0.2", tag.Name)
 }
 
+func TestCurrentTagAnnotatedHappy(t *testing.T) {
+	repo, err := git.PlainOpen("../testdata/annotated_git_tags_mix")
+	testGit := &Git{repo: repo, Debug: true}
+
+	assert.NoError(t, err)
+
+	tag, err := testGit.CurrentTag()
+
+	assert.NoError(t, err)
+	assert.Equal(t, "v0.0.3", tag.Name)
+}
+
 func TestCurrentTagUnhappy(t *testing.T) {
 	repo := setupRepo()
 	createTestHistory(repo)

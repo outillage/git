@@ -45,7 +45,7 @@ func (g *Git) getTags() ([]*Tag, error) {
 	}
 
 	err = tagObjects.ForEach(func(tag *object.Tag) error {
-		tags = append(tags, &Tag{Name: tag.Name, Date: tag.Tagger.When, Hash: tag.Hash})
+		tags = append(tags, &Tag{Name: tag.Name, Date: tag.Tagger.When, Hash: tag.Target})
 
 		return nil
 	})
