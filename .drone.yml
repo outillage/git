@@ -23,13 +23,13 @@ steps:
       event: [pull_request]
 
   - name: validate commits
-    image: commitsar/commitsar:0.8.0
+    image: outillage/commitsar:latest
     depends_on: [clone]
     when:
       event: [pull_request]
 
   - name: release notes
-    image: commitsar/release-notary:0.5.1
+    image: outillage/release-notary:latest
     environment:
       GITHUB_TOKEN:
         from_secret: github_token
