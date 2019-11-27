@@ -1,4 +1,4 @@
-module github.com/commitsar-app/git
+module github.com/outillage/git
 
 go 1.13
 
