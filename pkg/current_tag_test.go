@@ -1,15 +1,15 @@
 package history
 
 import (
+	"io/ioutil"
+	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/go-git.v4"
 )
 
 func TestCurrentTagHappy(t *testing.T) {
-	repo, err := git.PlainOpen("../testdata/git_tags")
-	testGit := &Git{repo: repo, Debug: true}
+	testGit, err := OpenGit("../testdata/git_tags", nil)
 
 	assert.NoError(t, err)
 
@@ -20,8 +20,7 @@ func TestCurrentTagHappy(t *testing.T) {
 }
 
 func TestCurrentTagAnnotatedHappy(t *testing.T) {
-	repo, err := git.PlainOpen("../testdata/annotated_git_tags_mix")
-	testGit := &Git{repo: repo, Debug: true}
+	testGit, err := OpenGit("../testdata/annotated_git_tags_mix", nil)
 
 	assert.NoError(t, err)
 
@@ -35,7 +34,7 @@ func TestCurrentTagUnhappy(t *testing.T) {
 	repo := setupRepo()
 	createTestHistory(repo)
 
-	testGit := &Git{repo: repo}
+	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
 
 	_, err := testGit.CurrentTag()
 

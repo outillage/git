@@ -1,6 +1,8 @@
 package history
 
 import (
+	"io/ioutil"
+	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -9,7 +11,7 @@ import (
 
 func TestPreviousTag(t *testing.T) {
 	repo, _ := git.PlainOpen("../testdata/git_tags")
-	testGit := &Git{repo: repo, Debug: true}
+	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
 
 	head, err := repo.Head()
 

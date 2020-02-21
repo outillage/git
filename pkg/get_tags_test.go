@@ -4,12 +4,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/go-git.v4"
 )
 
 func TestGetTags(t *testing.T) {
-	repo, err := git.PlainOpen("../testdata/git_tags")
-	testGit := &Git{repo: repo, Debug: false}
+	testGit, err := OpenGit("../testdata/git_tags", nil)
 
 	assert.NoError(t, err)
 
@@ -24,8 +22,7 @@ func TestGetTags(t *testing.T) {
 }
 
 func TestAnnotatedGetTags(t *testing.T) {
-	repo, err := git.PlainOpen("../testdata/annotated_git_tags_mix")
-	testGit := &Git{repo: repo, Debug: false}
+	testGit, err := OpenGit("../testdata/annotated_git_tags_mix", nil)
 
 	assert.NoError(t, err)
 

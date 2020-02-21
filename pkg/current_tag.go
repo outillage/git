@@ -2,7 +2,6 @@ package history
 
 import (
 	"errors"
-	"log"
 )
 
 var (
@@ -24,14 +23,10 @@ func (g *Git) CurrentTag() (*Tag, error) {
 		return nil, err
 	}
 
-	if g.Debug {
-		log.Println("head hash: ", head.Hash())
-	}
+	g.DebugLogger.Println("head hash: ", head.Hash())
 
 	for _, tag := range tags {
-		if g.Debug {
-			log.Printf("tag: %v, hash: %v", tag.Name, tag.Hash)
-		}
+		g.DebugLogger.Printf("tag: %v, hash: %v", tag.Name, tag.Hash)
 
 		if tag.Hash == head.Hash() {
 			return tag, nil

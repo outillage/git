@@ -1,6 +1,8 @@
 package history
 
 import (
+	"io/ioutil"
+	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,7 +12,7 @@ import (
 
 func TestCommitsBetween(t *testing.T) {
 	repo, _ := git.PlainOpen("../testdata/git_tags")
-	testGit := &Git{repo: repo, Debug: false}
+	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
 
 	head, err := repo.Head()
 
@@ -40,7 +42,7 @@ func TestNoToCommit(t *testing.T) {
 
 	head, _ := repo.Head()
 
-	testGit := &Git{repo: repo}
+	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
 
 	commits, err := testGit.CommitsBetween(head.Hash(), plumbing.Hash{})
 
