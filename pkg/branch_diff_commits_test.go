@@ -24,7 +24,7 @@ func TestBranchDiffCommits(t *testing.T) {
 
 func TestBranchDiffCommitsWithMasterMerge(t *testing.T) {
 	repo, _ := git.PlainOpen("../testdata/commits_on_branch")
-	testGit := &Git{repo: repo, Debug: true}
+	testGit := &Git{repo: repo}
 
 	commits, err := testGit.BranchDiffCommits("behind-master", "origin/master")
 

@@ -1,8 +1,6 @@
 package history
 
 import (
-	"fmt"
-
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
@@ -16,9 +14,7 @@ func (g *Git) CurrentCommit() (*object.Commit, error) {
 
 	currentCommitHash := head.Hash()
 
-	if g.Debug {
-		fmt.Printf("\ncurrent commitHash: %v \n", currentCommitHash)
-	}
+	g.DebugLogger.Printf("current commitHash: %v \n", currentCommitHash)
 
 	commitObject, err := g.repo.CommitObject(currentCommitHash)
 

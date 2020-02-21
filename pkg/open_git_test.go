@@ -7,14 +7,12 @@ import (
 )
 
 func TestOpenGit(t *testing.T) {
-	git, err := OpenGit("../", true)
+	_, err := OpenGit("../", nil)
 
 	// Should not error if this git repository is valid
 	assert.NoError(t, err)
-	// Check that debug flag is passed correctly
-	assert.Equal(t, true, git.Debug)
 
-	_, unhappyErr := OpenGit(".", false)
+	_, unhappyErr := OpenGit(".", nil)
 
 	// Should error opening a folder with missing .git
 	assert.Error(t, unhappyErr)
