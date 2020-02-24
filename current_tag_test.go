@@ -1,4 +1,4 @@
-package history
+package git
 
 import (
 	"io/ioutil"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestCurrentTagHappy(t *testing.T) {
-	testGit, err := OpenGit("../testdata/git_tags", nil)
+	testGit, err := OpenGit("./testdata/git_tags", nil)
 
 	assert.NoError(t, err)
 
@@ -20,7 +20,7 @@ func TestCurrentTagHappy(t *testing.T) {
 }
 
 func TestCurrentTagAnnotatedHappy(t *testing.T) {
-	testGit, err := OpenGit("../testdata/annotated_git_tags_mix", nil)
+	testGit, err := OpenGit("./testdata/annotated_git_tags_mix", nil)
 
 	assert.NoError(t, err)
 
