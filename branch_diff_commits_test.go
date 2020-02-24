@@ -1,4 +1,4 @@
-package history
+package git
 
 import (
 	"testing"
@@ -23,7 +23,7 @@ func TestBranchDiffCommits(t *testing.T) {
 }
 
 func TestBranchDiffCommitsWithMasterMerge(t *testing.T) {
-	repo, _ := git.PlainOpen("../testdata/commits_on_branch")
+	repo, _ := git.PlainOpen("./testdata/commits_on_branch")
 	testGit := &Git{repo: repo}
 
 	commits, err := testGit.BranchDiffCommits("behind-master", "origin/master")

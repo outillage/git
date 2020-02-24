@@ -1,4 +1,4 @@
-package history
+package git
 
 import (
 	"testing"
@@ -7,12 +7,12 @@ import (
 )
 
 func TestOpenGit(t *testing.T) {
-	_, err := OpenGit("../", nil)
+	_, err := OpenGit(".", nil)
 
 	// Should not error if this git repository is valid
 	assert.NoError(t, err)
 
-	_, unhappyErr := OpenGit(".", nil)
+	_, unhappyErr := OpenGit("./unknown", nil)
 
 	// Should error opening a folder with missing .git
 	assert.Error(t, unhappyErr)
