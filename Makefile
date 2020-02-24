@@ -14,4 +14,4 @@ go-mod-tidy:
 	git diff-index --quiet HEAD
 
 # Run all tests & linters in CI
-ci: test go-mod-tidy
+ci: setup-test test go-mod-tidy
