@@ -1,4 +1,4 @@
-module github.com/outillage/git
+module github.com/outillage/git/v2
 
 go 1.13
 
