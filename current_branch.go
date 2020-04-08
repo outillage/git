@@ -1,7 +1,7 @@
 package git
 
 import (
-	"gopkg.in/src-d/go-git.v4/plumbing"
+	"github.com/go-git/go-git/v5/plumbing"
 )
 
 // CurrentBranch returns the reference HEAD is at right now

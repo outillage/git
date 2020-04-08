@@ -3,7 +3,7 @@ package git
 import (
 	"fmt"
 
-	"gopkg.in/src-d/go-git.v4/plumbing"
+	"github.com/go-git/go-git/v5/plumbing"
 )
 
 // BranchDiffCommits compares commits from 2 branches and returns of a diff of them.

@@ -1,7 +1,7 @@
 package git
 
 import (
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
 // CurrentCommit returns the commit that HEAD is at
