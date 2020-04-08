@@ -3,7 +3,7 @@ package git
 import (
 	"time"
 
-	"gopkg.in/src-d/go-git.v4/plumbing"
+	"github.com/go-git/go-git/v5/plumbing"
 )
 
 // commitDate gets the commit at hash and returns the time of the commit
