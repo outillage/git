@@ -1,4 +1,4 @@
-module github.com/outillage/git/v2
+module github.com/aevea/git/v2
 
 go 1.13
 
