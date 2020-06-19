@@ -62,7 +62,7 @@ func createTestHistory(repo *git.Repository) {
 	createCommit(repo, "test commit on master")
 	createBranch(repo)
 	createCommit(repo, "commit on new branch")
-	createCommit(repo, "second commit on new branch")
+	createCommit(repo, "second commit on new branch\n\n Long message")
 	createCommit(repo, "third commit on new branch")
 }
 
