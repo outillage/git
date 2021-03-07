@@ -1,8 +1,6 @@
 package git
 
 import (
-	"io/ioutil"
-	"log"
 	"testing"
 
 	"github.com/go-git/go-git/v5"
@@ -11,7 +9,7 @@ import (
 
 func TestPreviousTag(t *testing.T) {
 	repo, _ := git.PlainOpen("./testdata/git_tags")
-	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
+	testGit := &Git{repo: repo}
 
 	head, err := repo.Head()
 

@@ -3,6 +3,7 @@ package git
 import (
 	"sort"
 
+	"github.com/apex/log"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -23,7 +24,7 @@ func (g *Git) getTags() ([]*Tag, error) {
 		commitDate, err := g.commitDate(t.Hash())
 
 		if err != nil {
-			g.DebugLogger.Printf("tag: %v ignored due to missing commit date: %v", t.Name(), err)
+			log.Debugf("tag: %v ignored due to missing commit date: %v", t.Name(), err)
 			return nil
 		}
 
@@ -50,9 +51,9 @@ func (g *Git) getTags() ([]*Tag, error) {
 	// Tags are alphabetically ordered. We need to sort them by date.
 	sortedTags := sortTags(g.repo, tags)
 
-	g.DebugLogger.Println("Sorted tag output: ")
+	log.Debug("Sorted tag output: ")
 	for _, taginstance := range sortedTags {
-		g.DebugLogger.Printf("hash: %v time: %v", taginstance.Hash, taginstance.Date.UTC())
+		log.Debugf("hash: %v time: %v", taginstance.Hash, taginstance.Date.UTC())
 	}
 
 	return sortedTags, nil
