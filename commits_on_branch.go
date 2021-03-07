@@ -3,6 +3,7 @@ package git
 import (
 	"errors"
 
+	"github.com/apex/log"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -32,7 +33,7 @@ func (g *Git) CommitsOnBranch(
 	})
 
 	if branchIterErr != nil {
-		g.DebugLogger.Printf("Stopped getting commits on branch: %v", branchIterErr)
+		log.Debugf("Stopped getting commits on branch: %v", branchIterErr)
 	}
 
 	return branchCommits, nil

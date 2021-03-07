@@ -1,11 +1,13 @@
 package git
 
 import (
+	"github.com/apex/log"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
+// SimpleCommit is a slimed down commit object of just Hash and Message
 type SimpleCommit struct {
 	Hash    [20]byte
 	Message string
@@ -35,7 +37,7 @@ func (g *Git) CommitsOnBranchSimple(
 	})
 
 	if branchIterErr != nil {
-		g.DebugLogger.Printf("Stopped getting commits on branch: %v", branchIterErr)
+		log.Debugf("Stopped getting commits on branch: %v", branchIterErr)
 	}
 
 	return branchCommits, nil

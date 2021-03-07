@@ -1,6 +1,7 @@
 package git
 
 import (
+	"github.com/apex/log"
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
@@ -14,7 +15,7 @@ func (g *Git) CurrentCommit() (*object.Commit, error) {
 
 	currentCommitHash := head.Hash()
 
-	g.DebugLogger.Printf("current commitHash: %v \n", currentCommitHash)
+	log.Debugf("current commitHash: %v \n", currentCommitHash)
 
 	commitObject, err := g.repo.CommitObject(currentCommitHash)
 

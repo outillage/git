@@ -2,6 +2,8 @@ package git
 
 import (
 	"errors"
+
+	"github.com/apex/log"
 )
 
 var (
@@ -23,10 +25,10 @@ func (g *Git) CurrentTag() (*Tag, error) {
 		return nil, err
 	}
 
-	g.DebugLogger.Println("head hash: ", head.Hash())
+	log.Debugf("head hash: %s", head.Hash())
 
 	for _, tag := range tags {
-		g.DebugLogger.Printf("tag: %v, hash: %v", tag.Name, tag.Hash)
+		log.Debugf("tag: %v, hash: %v", tag.Name, tag.Hash)
 
 		if tag.Hash == head.Hash() {
 			return tag, nil

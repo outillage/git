@@ -1,15 +1,13 @@
 package git
 
 import (
-	"io/ioutil"
-	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestCurrentTagHappy(t *testing.T) {
-	testGit, err := OpenGit("./testdata/git_tags", nil)
+	testGit, err := OpenGit("./testdata/git_tags")
 
 	assert.NoError(t, err)
 
@@ -20,7 +18,7 @@ func TestCurrentTagHappy(t *testing.T) {
 }
 
 func TestCurrentTagAnnotatedHappy(t *testing.T) {
-	testGit, err := OpenGit("./testdata/annotated_git_tags_mix", nil)
+	testGit, err := OpenGit("./testdata/annotated_git_tags_mix")
 
 	assert.NoError(t, err)
 
@@ -34,7 +32,7 @@ func TestCurrentTagUnhappy(t *testing.T) {
 	repo := setupRepo()
 	createTestHistory(repo)
 
-	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
+	testGit := &Git{repo: repo}
 
 	_, err := testGit.CurrentTag()
 

@@ -1,8 +1,6 @@
 package git
 
 import (
-	"io/ioutil"
-	"log"
 	"testing"
 
 	"github.com/go-git/go-git/v5"
@@ -12,7 +10,7 @@ import (
 
 func TestCommitsBetween(t *testing.T) {
 	repo, _ := git.PlainOpen("./testdata/git_tags")
-	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
+	testGit := &Git{repo: repo}
 
 	head, err := repo.Head()
 
@@ -42,7 +40,7 @@ func TestNoToCommit(t *testing.T) {
 
 	head, _ := repo.Head()
 
-	testGit := &Git{repo: repo, DebugLogger: log.New(ioutil.Discard, "", 0)}
+	testGit := &Git{repo: repo}
 
 	commits, err := testGit.CommitsBetween(head.Hash(), plumbing.Hash{})
 

@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetTags(t *testing.T) {
-	testGit, err := OpenGit("./testdata/git_tags", nil)
+	testGit, err := OpenGit("./testdata/git_tags")
 
 	assert.NoError(t, err)
 
@@ -22,7 +22,7 @@ func TestGetTags(t *testing.T) {
 }
 
 func TestAnnotatedGetTags(t *testing.T) {
-	testGit, err := OpenGit("./testdata/annotated_git_tags_mix", nil)
+	testGit, err := OpenGit("./testdata/annotated_git_tags_mix")
 
 	assert.NoError(t, err)
 
